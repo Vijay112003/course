@@ -1,0 +1,53 @@
+<?php
+include('connection.php');
+if($_POST['sign-in']=='Register'){
+$name=$_POST['uname'];
+$email=$_POST['email'];
+$pass=$_POST['password'];
+$degree=$_POST['degree'];
+$dpt=$_POST['dpt'];
+$course=$_POST['intrested'];
+if($conn->query($query1)==TRUE){
+    $conn->select_db($db);
+    if($conn->query($query2)==TRUE){
+        //echo($name);
+        $query3="insert into details (uname,email,password,degree,department,course) values('$name','$email','$pass','$degree','$dpt','$course')";
+        if($conn->query($query3)){
+            echo("Registered successfully");
+        }
+        else{
+            echo("<h1>User already exist</h1><form action='login.php' method='POST'>
+            <input type='submit' value='Login'>
+            </form>");
+        }
+    }
+    else{
+        echo("There is something went wrong");
+    }
+}
+else{
+    echo("There is something went wrong");
+}
+//echo($name);
+}
+else if($_POST['sign-in']=='Login')
+{
+    $email=$_POST['email'];
+    $pass=$_POST['password'];
+    if($conn->query($query1)==TRUE){
+        $conn->select_db($db);
+        if($conn->query($query2)==TRUE){
+            $query3="select * from details where email='$email' and password='$pass'";
+            $result = $conn->query($query3);
+            $row = $result -> fetch_array();
+            echo($row['email']);
+        }
+        else{
+            echo("There is something went wrong");
+        }
+    }
+    else{
+        echo("There is something went wrong");
+    }
+}
+?>
