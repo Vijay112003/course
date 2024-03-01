@@ -1,0 +1,12 @@
+<?php
+$conn =new mysqli("localhost","root","");
+if($conn->connect_error)
+{
+    die("failed to connect db");
+}
+else{
+    $db='registration';
+    $query1="create database if not exists $db";
+    $query2="create table if not exists details(user_id int(6) not null auto_increment,uname varchar(40),email varchar(30) unique,password varchar(30),degree varchar(30),department varchar(30),course varchar(10),PRIMARY KEY(user_id))";
+}
+?>
